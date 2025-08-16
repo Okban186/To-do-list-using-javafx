@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>javafx-demo</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <javafx.version>22.0.2</javafx.version> <!-- Đồng bộ phiên bản JavaFX -->
+    </properties>
+
+  <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+     
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+      
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+  
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+    <plugins>
+        <!-- Maven Shade Plugin để đóng gói tất cả vào 1 JAR -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.4.1</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <finalName>javafx-demo-1.0-shaded</finalName> <!-- Tên file JAR -->
+                        <transformers>
+                            <!-- Chỉ định class chính -->
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>com.example.MainApp</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        <!-- JavaFX Maven Plugin -->
+       <plugin>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-maven-plugin</artifactId>
+    <version>0.0.8</version>
+    <configuration>
+        <mainClass>com.example.MainApp</mainClass>
+    </configuration>
+    <executions>
+        <execution>
+            <goals>
+                <goal>run</goal> <!-- Chạy ứng dụng từ Maven -->
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+ <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.example.MainApp</mainClass>
+                </configuration>
+            </plugin>
+        <!-- Maven Dependency Plugin để sao chép phụ thuộc vào thư mục lib -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.6.0</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        <includeScope>runtime</includeScope>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+     <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <version>3.4.1</version>
+    <executions>
+        <execution>
+            <phase>package</phase>
+            <goals>
+                <goal>shade</goal>
+            </goals>
+            <configuration>
+                <finalName>javafx-demo-1.0</finalName>
+                <transformers>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                        <mainClass>com.example.MainApp</mainClass>
+                    </transformer>
+                    <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                  
+                </transformers>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+    </plugins>
+</build>
+</project>

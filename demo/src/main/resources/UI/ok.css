@@ -1,0 +1,9 @@
+
+
+/* Viền checkbox */
+.check-box .box {
+    -fx-border-color: #3E2723;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-color: transparent;
+}
