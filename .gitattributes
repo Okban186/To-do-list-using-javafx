@@ -1,0 +1,20 @@
+
+*.java linguist-detectable=true
+
+
+*.xml linguist-detectable=false
+*.yml linguist-detectable=false
+*.yaml linguist-detectable=false
+*.json linguist-detectable=false
+*.properties linguist-detectable=false
+
+
+target/* linguist-vendored
+bin/* linguist-vendored
+out/* linguist-vendored
+dist/* linguist-vendored
+
+*.md linguist-detectable=false
+*.txt linguist-detectable=false
+*.docx linguist-detectable=false
+*.pdf linguist-detectable=false
